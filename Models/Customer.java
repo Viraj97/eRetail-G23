@@ -1,3 +1,4 @@
+package Models;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,6 +9,8 @@ public class Customer {
     private String password;
     private String address;
 
+    private static Set<String> registeredEmails = new HashSet<>();
+
     public Customer(String customerId, String name, String email, String password, String address) {
         this.customerId = customerId;
         this.name = name;
@@ -15,24 +18,20 @@ public class Customer {
         this.password = password;
         this.address = address;
     }
-    
-    private static Set<String> registeredEmails = new HashSet<>(); 
+
     public void register() {
         if (name == null || email == null || password == null || address == null) {
             System.out.println("Registration failed: All fields are required.");
             return;
         }
-
         if (!email.contains("@") || !email.contains(".")) {
             System.out.println("Registration failed: Invalid email format.");
             return;
         }
-
         if (registeredEmails.contains(email)) {
             System.out.println("Registration failed: Email already registered.");
             return;
         }
-
         registeredEmails.add(email);
         System.out.println("Customer " + name + " registered successfully with ID " + customerId);
     }
